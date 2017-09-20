@@ -49,6 +49,7 @@ minutes by default).
     --with-ignore-dot \
     --with-tty-tickets \
     --enable-shell-sets-home \
+    --enable-tmpfiles.d=%{_libdir}/tmpfiles.d \
     --enable-warnings \
     --with-sudoers-mode=0440 \
     --with-env-editor \
@@ -63,7 +64,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 # >> install pre
 # << install pre
-%make_install
+make install DESTDIR=%{buildroot} install_uid=`id -u` install_gid=`id -g` sudoers_uid=`id -u` sudoers_gid=`id -g`
 
 # >> install post
 install -d -m 755 %{buildroot}%{_sysconfdir}/pam.d
